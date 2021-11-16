@@ -1,23 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/Home';
+import Header from './components/Header';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [post, setPost] = useState([])
+  const [review, setReview] = useState([])
+  // const [user, setUser] = useState([])
+
+  useEffect(() => {
+    fetch("/posts")
+    .then(res => res.json())
+    .then(data => setPost(data))
+  }, [])
+
+  useEffect(() => {
+    fetch("/reviews")
+    .then(res => res.json())
+    .then(data => setReview(data))
+  }, [])
+
+  function makePost(newPost){
+    fetch("/post", {
+    method: "POST",
+    headers: {"Content-Type" : "application/json"}
+    })
+    .then(res => res.json(newPost))
+    .then(data => setPost(...post, data))
+  }
+ 
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <Home post={post} review={review} makePost={makePost}/>
     </div>
   );
 }
