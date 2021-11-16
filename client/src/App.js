@@ -4,14 +4,14 @@ import Header from './components/Header';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [post, setPost] = useState([])
+  const [postData, setPostData] = useState([])
   const [review, setReview] = useState([])
   // const [user, setUser] = useState([])
 
   useEffect(() => {
     fetch("/posts")
     .then(res => res.json())
-    .then(data => setPost(data))
+    .then(data => setPostData(data))
   }, [])
 
   useEffect(() => {
@@ -20,23 +20,24 @@ function App() {
     .then(data => setReview(data))
   }, [])
 
-  function makePost(newPost){
-    fetch("/posts", {
-    method: "POST",
-    headers: {"Content-Type" : "application/json"}
-    ,
-    body: JSON.stringify({newPost}), 
-  })
+  const makePost = post => {
+    fetch('/posts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(post)
+    })
     .then(res => res.json())
-    .then(data => setPost([...post, data]))
-  }
+    .then(post => {
+      setPostData([
+        post, ...postData
+      ])
+    })
+  } 
  
-  
-
   return (
     <div>
       <Header/>
-      <Home post={post} review={review} makePost={makePost}/>
+      <Home postData={postData} review={review} makePost={makePost}/>
     </div>
   );
 }

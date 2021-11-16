@@ -24,8 +24,8 @@ export default function PostForm({makePost}){
         <form onSubmit={handleSubmit}>
             <label>
                 Title:
-                <input type="text" name="title" value={newPost.title} onChange={handleChange}/>
             </label>
+            <input type="text" name="title" value={newPost.title} onChange={handleChange}/>
             <label>
                 Character Class:
                 <input type="text" name="character_class" value={newPost.character_class} onChange={handleChange}/>
