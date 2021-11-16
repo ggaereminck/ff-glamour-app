@@ -9,6 +9,8 @@ export default function Posts({reviewData, title, image, likes, character_class,
         "rating": "",
         "comment": ""
     })
+    const [liked, setLiked] = useState(false)
+    const [newLikes, setNewLikes] = useState(likes)
 
     function handleChange(e){
         setNewReview({ ...newReview, 
@@ -20,11 +22,22 @@ export default function Posts({reviewData, title, image, likes, character_class,
         makeReview(newReview)
     }
 
+    function addLikes(){
+        if (liked === true){
+            setNewLikes(newLikes => newLikes-=1)
+        }else
+            setNewLikes(newLikes => newLikes+=1)
+    }
+
     return (
         <div>
             <p>{title}</p>
             <img src={image} alt={title}/>
-            <p>{likes}</p>
+            <button onClick={() => {
+                setLiked(!liked)
+                addLikes()
+                }}>{liked ? "Dislike" : "Like"}</button>
+            <p>{newLikes}</p>
             <p>{character_class}</p>
             <form onSubmit={handleSubmit}>
                 <label>
