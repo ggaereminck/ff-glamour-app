@@ -21,12 +21,14 @@ function App() {
   }, [])
 
   function makePost(newPost){
-    fetch("/post", {
+    fetch("/posts", {
     method: "POST",
     headers: {"Content-Type" : "application/json"}
-    })
-    .then(res => res.json(newPost))
-    .then(data => setPost(...post, data))
+    ,
+    body: JSON.stringify({newPost}), 
+  })
+    .then(res => res.json())
+    .then(data => setPost([...post, data]))
   }
  
   

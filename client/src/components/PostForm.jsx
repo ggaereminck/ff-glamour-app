@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function PostForm({makePost}){
     const [newPost, setNewPost] = useState({
+        "user_id": 1,
         "title": "",
         "character_class": "",
         "likes": 0,
