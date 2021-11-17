@@ -20,6 +20,7 @@ class ReviewsController < ApplicationController
         head :no_content
     end
 
+  
     private 
 
     def review_params 

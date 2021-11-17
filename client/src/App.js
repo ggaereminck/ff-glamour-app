@@ -48,12 +48,12 @@ function App() {
     })
   } 
 
-  const updateLikes = (id, likes) => {
-    console.log(id, likes)
-    fetch(`http://localhost:3000/posts/${id}`, {
+  const updateLikes = (id, newLikes) => {
+    console.log(id, newLikes)
+    fetch(`/posts/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify(likes)
+      body: JSON.stringify({likes: newLikes })
     })
     .then(res => res.json())
     .then(data => console.log(data))

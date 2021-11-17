@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  resources :posts
+  resources :posts, only: [:index, :show, :create,:destroy, :update]
+  # patch "/posts/:id/like", to:"posts#increment_likes"
   resources :reviews
   resources :users
   # Routing logic: fallback requests for React Router.

@@ -22,10 +22,11 @@ class PostsController < ApplicationController
     end
 
     def update
-        post = Post.find(params[:id])
-        post.update(likes: params[:likes])
-        render json: post, status: :ok
+        post = Post.find_by(id: params[:id])
+        post.update(post_params)
+        render json: post
     end
+
 
     private 
 
