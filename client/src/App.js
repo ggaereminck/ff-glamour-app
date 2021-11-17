@@ -2,12 +2,23 @@ import './App.css';
 import Home from './components/Home';
 import Header from './components/Header';
 import { useState, useEffect } from 'react';
+import Login from './components/Login';
 
 function App() {
+  const [user, setUser] = useState(null)
   const [postData, setPostData] = useState([])
   const [reviewData, setReviewData] = useState([])
-  // const [user, setUser] = useState([])
 
+  useEffect(() =>{
+    fetch('/me')
+    .then(r => {
+      if(r.ok) {
+        r.json().then(user => setUser(user))
+      }
+    })
+  },[])
+
+  
   useEffect(() => {
     fetch("/posts")
     .then(res => res.json())
@@ -19,6 +30,9 @@ function App() {
     .then(res => res.json())
     .then(data => setReviewData(data))
   }, [])
+
+  if(!user) return <Login onLogin={setUser}/>
+
 
   const makePost = post => {
     fetch('/posts', {
@@ -61,7 +75,7 @@ function App() {
  
   return (
     <div>
-      <Header/>
+      <Header user={user} setUser={setUser}/>
       <Home postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}/>
     </div>
   );
