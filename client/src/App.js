@@ -8,6 +8,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [postData, setPostData] = useState([])
   const [reviewData, setReviewData] = useState([])
+  const [userData, setUserData] = useState([])
 
   useEffect(() =>{
     fetch('/me')
@@ -29,6 +30,12 @@ function App() {
     fetch("/reviews")
     .then(res => res.json())
     .then(data => setReviewData(data))
+  }, [])
+
+  useEffect(() => {
+    fetch("/users")
+    .then(res => res.json())
+    .then(data => setUserData(data))
   }, [])
 
   if(!user) return <Login onLogin={setUser}/>
