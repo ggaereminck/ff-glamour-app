@@ -47,11 +47,22 @@ function App() {
       ])
     })
   } 
+
+  const updateLikes = (id, likes) => {
+    console.log(id, likes)
+    fetch(`http://localhost:3000/posts/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(likes)
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+  }
  
   return (
     <div>
       <Header/>
-      <Home postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview}/>
+      <Home postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}/>
     </div>
   );
 }

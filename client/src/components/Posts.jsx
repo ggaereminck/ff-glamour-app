@@ -2,7 +2,7 @@ import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
 
-export default function Posts({reviewData, title, image, likes, character_class, makeReview, id}){
+export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes}){
     const [newReview, setNewReview] = useState({
         "user_id": 1,
         "post_id": id,
@@ -11,6 +11,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
     })
     const [liked, setLiked] = useState(false)
     const [newLikes, setNewLikes] = useState(likes)
+    const [toggleForm, setToggleForm] = useState(true)
 
     function handleChange(e){
         setNewReview({ ...newReview, 
@@ -25,8 +26,10 @@ export default function Posts({reviewData, title, image, likes, character_class,
     function addLikes(){
         if (liked === true){
             setNewLikes(newLikes => newLikes-=1)
+            updateLikes(id, newLikes)
         }else
             setNewLikes(newLikes => newLikes+=1)
+            updateLikes(id, newLikes)
     }
 
     return (
@@ -39,7 +42,8 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 }}>{liked ? "Dislike" : "Like"}</button>
             <p>{newLikes}</p>
             <p>{character_class}</p>
-            <form onSubmit={handleSubmit}>
+            <button onClick={() => setToggleForm(!toggleForm)}>{toggleForm ? "Hide Form" : "Add Review"}</button>
+            {toggleForm ? <form onSubmit={handleSubmit}>
                 <label>
                     Rating:
                 </label>
@@ -49,7 +53,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                     <textarea type="text" name="comment" value={newReview.comment} onChange={handleChange}/>
                 </label>
                 <input type="submit" value="Submit"/>
-            </form>
+            </form> : ""}
             {reviewData.map(review => 
                 <Reviews key={review.id} rating={review.rating} comment={review.comment}/>
             )}

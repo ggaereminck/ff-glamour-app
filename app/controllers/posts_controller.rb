@@ -21,6 +21,12 @@ class PostsController < ApplicationController
         head :no_content
     end
 
+    def update
+        post = Post.find(params[:id])
+        post.update(likes: params[:likes])
+        render json: post, status: :ok
+    end
+
     private 
 
     def post_params 
