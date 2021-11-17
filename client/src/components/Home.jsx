@@ -5,7 +5,6 @@ import PostForm from "./PostForm";
 export default function Home({postData, reviewData, makePost, makeReview, updateLikes}){
     return (
         <div>
-            Home
             <PostForm makePost={makePost}/>
             <PostContainer postData={postData} reviewData={reviewData} makeReview={makeReview} updateLikes={updateLikes}/>
         </div>

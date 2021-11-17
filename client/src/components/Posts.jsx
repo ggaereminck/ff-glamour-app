@@ -10,7 +10,6 @@ export default function Posts({reviewData, title, image, likes, character_class,
         "comment": ""
     })
     const [liked, setLiked] = useState(false)
-    const [newLikes, setNewLikes] = useState(likes)
     const [toggleForm, setToggleForm] = useState(true)
 
     function handleChange(e){
@@ -24,23 +23,23 @@ export default function Posts({reviewData, title, image, likes, character_class,
     }
 
     function addLikes(){
-        if (!liked === true){
-            setNewLikes(newLikes => newLikes+1)
-            updateLikes(id, newLikes)
-        }else
-            setNewLikes(newLikes => newLikes-1)
-            updateLikes(id, newLikes)
-    }
+        const oppLike = !liked
+        if (oppLike === true){
+            updateLikes(id, likes + 1)
+        }else{
+            updateLikes(id, likes-1)
+    }}
 
     return (
         <div>
+            {console.log(reviewData.post_id)}
             <p>{title}</p>
             <img src={image} alt={title}/>
             <button onClick={() => {
-                setLiked(!liked)
                 addLikes()
+                setLiked(!liked)
                 }}>{liked ? "Dislike" : "Like"}</button>
-            <p>{newLikes}</p>
+            <p>{likes}</p>
             <p>{character_class}</p>
             <button onClick={() => setToggleForm(!toggleForm)}>{toggleForm ? "Hide Form" : "Add Review"}</button>
             {toggleForm ? <form onSubmit={handleSubmit}>
@@ -54,7 +53,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 </label>
                 <input type="submit" value="Submit"/>
             </form> : ""}
-            {reviewData.map(review => 
+            {reviewData.filter((a) => a.post_id === id).map(review => 
                 <Reviews key={review.id} rating={review.rating} comment={review.comment}/>
             )}
         </div>

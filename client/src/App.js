@@ -70,8 +70,15 @@ function App() {
       body: JSON.stringify({likes: newLikes })
     })
     .then(res => res.json())
-    .then(data => console.log(data))
-  }
+    .then(updatedPost => {
+      const updatedPostList = postData.map(post => {
+        if(post.id === updatedPost.id){
+          return updatedPost
+        } else {
+        return post
+      }});
+      setPostData(updatedPostList)
+  })}
  
   return (
     <div>
