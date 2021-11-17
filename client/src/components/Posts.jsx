@@ -2,7 +2,7 @@ import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
 
-export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes}){
+export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user}){
     const [newReview, setNewReview] = useState({
         "user_id": 1,
         "post_id": id,
@@ -34,6 +34,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
         <div>
             {console.log(reviewData.post_id)}
             <p>{title}</p>
+            <p>{user}</p>
             <img src={image} alt={title}/>
             <button onClick={() => {
                 addLikes()

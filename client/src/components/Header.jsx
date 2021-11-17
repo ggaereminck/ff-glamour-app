@@ -16,7 +16,6 @@ export default function Header({user,setUser}){
 
     return (
         <div>
-            Header
             <p>{user.username}</p>
             <button onClick={handleLogOut}>Logout</button>
         </div>

@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 
-export default function PostForm({makePost}){
+export default function PostForm({makePost, user}){
     const [newPost, setNewPost] = useState({
-        "user_id": 1,
+        "user_id": user.id,
         "title": "",
         "character_class": "",
         "likes": 0,

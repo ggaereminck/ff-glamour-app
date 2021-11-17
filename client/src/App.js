@@ -13,7 +13,7 @@ function App() {
     fetch('/me')
     .then(r => {
       if(r.ok) {
-        r.json().then(user => setUser(user))
+        r.json().then(user =>  (user))
       }
     })
   },[])
@@ -83,7 +83,7 @@ function App() {
   return (
     <div>
       <Header user={user} setUser={setUser}/>
-      <Home postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}/>
+      <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}/>
     </div>
   );
 }
