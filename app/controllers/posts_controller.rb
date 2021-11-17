@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     end
 
     def update
-        post = Post.find_by(id: params[:id])
+        post = Post.find(params[:id])
         post.update(post_params)
         render json: post
     end

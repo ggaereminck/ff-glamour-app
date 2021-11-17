@@ -24,11 +24,11 @@ export default function Posts({reviewData, title, image, likes, character_class,
     }
 
     function addLikes(){
-        if (liked === true){
-            setNewLikes(newLikes => newLikes-=1)
+        if (!liked === true){
+            setNewLikes(newLikes => newLikes+1)
             updateLikes(id, newLikes)
         }else
-            setNewLikes(newLikes => newLikes+=1)
+            setNewLikes(newLikes => newLikes-1)
             updateLikes(id, newLikes)
     }
 
