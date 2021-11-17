@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :posts, only: [:index, :show, :create,:destroy, :update]
   # update "/posts/:id/like", to:"posts#update"
   resources :reviews
-  # resources :users
+  resources :users
   # Routing logic: fallback requests for React Router.
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
