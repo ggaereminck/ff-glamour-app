@@ -7,7 +7,8 @@ export default function PostForm({makePost, user}){
         "title": "",
         "character_class": "",
         "likes": 0,
-        "image": ""
+        "image": "",
+        "favorite": false
     })
 
     function handleChange(e){

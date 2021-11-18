@@ -3,6 +3,11 @@ import Home from './components/Home';
 import Header from './components/Header';
 import { useState, useEffect } from 'react';
 import Login from './components/Login';
+import {Switch, Route} from "react-router-dom";
+import NavBar from './components/NavBar';
+import Profile from './components/Profile';
+
+
 
 function App() {
   const [user, setUser] = useState(null)
@@ -90,6 +95,23 @@ function App() {
       setPostData(updatedPostList)
   })}
 
+  const updateFavorite = (id, newFavorite) => {
+    fetch(`/posts/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({favorite: newFavorite })
+    })
+    .then(res => res.json())
+    .then(updatedPost => {
+      const updatedPostList = postData.map(post => {
+        if(post.id === updatedPost.id){
+          return updatedPost
+        } else {
+        return post
+      }});
+      setPostData(updatedPostList)
+  })}
+
 
 const handleDeletePost = id => {
   fetch(`posts/${id}`,{
@@ -112,8 +134,19 @@ const handleDeleteReview = id => {
 }
   return (
     <div>
-      <Header user={user} setUser={setUser}/>
-      <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}  setPostData={setPostData} handleDeletePost={handleDeletePost} handleDeleteReview={handleDeleteReview}/>
+        <Header user={user} setUser={setUser}/>
+        <NavBar />
+        <Switch> 
+        <Route path="/Profile">
+        {postData.filter(post => post.user.id === user.id).sort((a, b) =>
+          b.favorite - a.favorite).map(post => 
+                <Profile key={post.id} user={user} title={post.title}  image={post.image} likes={post.likes} character_class={post.character_class} reviewData={reviewData} id={post.id} handleDeletePost={handleDeletePost} username={post.user.username} userId={post.user.id} handleDeleteReview={handleDeleteReview} updateFavorite={updateFavorite} postFavorite={post.favorite}/>
+            )}
+        </Route>
+        <Route path="/">
+          <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}  setPostData={setPostData} handleDeletePost={handleDeletePost} handleDeleteReview={handleDeleteReview}/>
+        </Route>
+        </Switch>
     </div>
   );
 }

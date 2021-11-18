@@ -6,7 +6,7 @@ export default function Reviews({rating, comment, username, user, userId, handle
             <p>{username}</p>
             <p>{`${rating}/5`}</p>
             <p>{`Comment: ${comment}`}</p>
-            {user.id === userId ? <button onClick={ () => handleDeleteReview(id)}>Delete Post</button> : ""}
+            {user.id === userId ? <button onClick={ () => handleDeleteReview(id)}>Delete Review</button> : ""}
         </div>
     )
 }
