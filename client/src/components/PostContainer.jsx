@@ -5,7 +5,7 @@ export default function PostContainer({postData, reviewData, makeReview, updateL
     return (
         <div>
             {postData.map(post => 
-                <Posts key={post.id} user={user} title={post.title}  image={post.image} likes={post.likes} character_class={post.character_class} reviewData={reviewData} makeReview={makeReview} id={post.id} updateLikes={updateLikes} postData={postData} setPostData={setPostData} handleDeletePost={handleDeletePost} username={post.user.username}/>
+                <Posts key={post.id} user={user} title={post.title}  image={post.image} likes={post.likes} character_class={post.character_class} reviewData={reviewData} makeReview={makeReview} id={post.id} updateLikes={updateLikes} postData={postData} setPostData={setPostData} handleDeletePost={handleDeletePost} username={post.user.username} userId={post.user.id}/>
             )}
         </div>
     )

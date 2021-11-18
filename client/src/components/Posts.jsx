@@ -2,7 +2,7 @@ import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
 
-export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, handleDeletePost, username}){
+export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, handleDeletePost, username, userId}){
     const [newReview, setNewReview] = useState({
         "user_id": user.id,
         "post_id": id,
@@ -54,7 +54,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 addLikes()
                 setLiked(!liked)
                 }}>{liked ? "Dislike" : "Like"}</button>
-                <button onClick={ () =>handleDeletePost(id)}>Delete Post</button>
+                {user.id === userId ? <button onClick={ () =>handleDeletePost(id)}>Delete Post</button> : ""}
             <p>{likes}</p>
             <p>{character_class}</p>
             <button onClick={() => setToggleForm(!toggleForm)}>{toggleForm ? "Hide Form" : "Add Review"}</button>
