@@ -8,7 +8,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [postData, setPostData] = useState([])
   const [reviewData, setReviewData] = useState([])
-  const [userData, setUserData] = useState([])
+
 
   useEffect(() =>{
     fetch('/me')
@@ -32,11 +32,6 @@ function App() {
     .then(data => setReviewData(data))
   }, [])
 
-  useEffect(() => {
-    fetch("/users")
-    .then(res => res.json())
-    .then(data => setUserData(data))
-  }, [])
 
   if(!user) return <Login onLogin={setUser}/>
 
@@ -97,15 +92,6 @@ const handleDeletePost = id => {
     setPostData(deletePost)
   })
 }
-
-console.log(user)
-console.log(userData)
-
-  
-
-
-  
-
 
   return (
     <div>

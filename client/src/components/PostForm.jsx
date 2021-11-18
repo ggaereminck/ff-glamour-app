@@ -5,7 +5,7 @@ export default function PostForm({makePost, user}){
     console.log(user)
     console.log(user.id)
     const [newPost, setNewPost] = useState({
-        "user_id": 1,
+        "user_id": user.id,
         "title": "",
         "character_class": "",
         "likes": 0,

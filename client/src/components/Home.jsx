@@ -6,7 +6,7 @@ export default function Home({postData, reviewData, makePost, makeReview, update
     return (
         <div>
             <PostForm user={user} makePost={makePost}/>
-            <PostContainer postData={postData} reviewData={reviewData} makeReview={makeReview} updateLikes={updateLikes} setPostData={setPostData} handleDeletePost={handleDeletePost} />
+            <PostContainer postData={postData} reviewData={reviewData} makeReview={makeReview} updateLikes={updateLikes} setPostData={setPostData} handleDeletePost={handleDeletePost} user={user}/>
         </div>
     )
 }

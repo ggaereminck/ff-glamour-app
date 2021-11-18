@@ -2,9 +2,9 @@ import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
 
-export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, setPostData, postData, handleDeletePost}){
+export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, handleDeletePost, username}){
     const [newReview, setNewReview] = useState({
-        "user_id": 1,
+        "user_id": user.id,
         "post_id": id,
         "rating": "",
         "comment": ""
@@ -48,7 +48,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
         <div>
             {console.log(reviewData.post_id)}
             <p>{title}</p>
-            <p>{user}</p>
+            <p>{username}</p>
             <img src={image} alt={title}/>
             <button onClick={() => {
                 addLikes()
@@ -70,7 +70,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 <input type="submit" value="Submit"/>
             </form> : ""}
             {reviewData.filter((a) => a.post_id === id).map(review => 
-                <Reviews key={review.id} rating={review.rating} comment={review.comment}/>
+                <Reviews key={review.id} rating={review.rating} comment={review.comment} username={review.user.username}/>
             )}
         </div>
     )
