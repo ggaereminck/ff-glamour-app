@@ -86,11 +86,31 @@ function App() {
       }});
       setPostData(updatedPostList)
   })}
- 
+
+
+const handleDeletePost = id => {
+  fetch(`posts/${id}`,{
+    method : 'DELETE'
+  })
+  .then(() => {
+    const deletePost = postData.filter(post => post.id !== id)
+    setPostData(deletePost)
+  })
+}
+
+console.log(user)
+console.log(userData)
+
+  
+
+
+  
+
+
   return (
     <div>
       <Header user={user} setUser={setUser}/>
-      <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}/>
+      <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}  setPostData={setPostData} handleDeletePost={handleDeletePost}/>
     </div>
   );
 }

@@ -2,8 +2,10 @@ import React from "react";
 import { useState } from "react";
 
 export default function PostForm({makePost, user}){
+    console.log(user)
+    console.log(user.id)
     const [newPost, setNewPost] = useState({
-        "user_id": user.id,
+        "user_id": 1,
         "title": "",
         "character_class": "",
         "likes": 0,
@@ -17,6 +19,7 @@ export default function PostForm({makePost, user}){
 
     function handleSubmit(e){
         e.preventDefault()
+        console.log(newPost)
         makePost(newPost)
     }
 

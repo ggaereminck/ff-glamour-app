@@ -2,7 +2,7 @@ import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
 
-export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user}){
+export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, setPostData, postData, handleDeletePost}){
     const [newReview, setNewReview] = useState({
         "user_id": 1,
         "post_id": id,
@@ -30,6 +30,20 @@ export default function Posts({reviewData, title, image, likes, character_class,
             updateLikes(id, likes-1)
     }}
 
+    // function handleDeletePost(id){
+    //     fetch(`/posts/${id}`, {
+    //         method: 'DELETE',
+    // }).then((r) => r.json())
+    //     .then (() => {
+    //         const filteredPost = postData.filter(pData => pData.id !== postData.id)
+    //         setPostData(filteredPost)
+    //     });
+    // }
+
+
+            
+     
+
     return (
         <div>
             {console.log(reviewData.post_id)}
@@ -40,6 +54,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 addLikes()
                 setLiked(!liked)
                 }}>{liked ? "Dislike" : "Like"}</button>
+                <button onClick={ () =>handleDeletePost(id)}>Delete Post</button>
             <p>{likes}</p>
             <p>{character_class}</p>
             <button onClick={() => setToggleForm(!toggleForm)}>{toggleForm ? "Hide Form" : "Add Review"}</button>
@@ -47,7 +62,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 <label>
                     Rating:
                 </label>
-                <input type="text" name="rating" value={newReview.rating} onChange={handleChange}/>
+                <input type="number"  min="0" max="5" step="1" name="rating" value={newReview.rating} onChange={handleChange}/>
                 <label>
                     Comment:
                     <textarea type="text" name="comment" value={newReview.comment} onChange={handleChange}/>

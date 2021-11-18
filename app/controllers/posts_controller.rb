@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
     skip_before_action :authorize, only: [:index, :show]
+    
 
     def index 
         render json: Post.all
@@ -18,8 +19,8 @@ class PostsController < ApplicationController
     def destroy 
         post = Post.find(params[:id])
         post.destroy
-        head :no_content
-    end
+     end
+   
 
     def update
         post = Post.find(params[:id])
@@ -33,4 +34,5 @@ class PostsController < ApplicationController
     def post_params 
         params.permit(:user_id, :title, :image, :likes, :character_class )
     end
+
 end
