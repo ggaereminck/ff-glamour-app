@@ -40,32 +40,29 @@ const SignUpForm = ({onLogin}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-
-            <label htmlFor="username">Username</label>
-            <input type='text' id='username' 
+            <h2>Sign Up</h2>
+            <input className='input-box' placeholder='Username' type='text' id='username' 
              name = "username"autoComplete='off' value={signup.username} 
             onChange={handleChange}
             />
 
-            <label htmlFor="password">Password</label>
-            <input type='password' id='password' 
+            <input className='input-box' placeholder='Password' type='password' id='password' 
              name = "password"
             autoComplete='current-password' value={signup.password} 
             onChange={handleChange}
             />
-            <label htmlFor="password_confirmation">Password Confirmation</label>
-            <input type='password' 
+            <input className='input-box' placeholder='Password Confirmation' type='password' 
              name = "password_confirmation"
             id='password_confirmation' autoComplete='current-password' value={signup.password_confirmation}
             onChange={handleChange} />
-            <button type='submit'>
+            <button type='submit' className='signup-btn'>
             {isloading ? "Loading...." : "Sign Up"}
             </button>
             {errors.map(err => {
                 return (
-                    <p key={err}>
+                    <span key={err}>
                         {err}
-                    </p>
+                    </span>
                 )
                 })}
         </form>

@@ -1,6 +1,7 @@
 import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
+import {GiBroadsword, GiAncientSword} from 'react-icons/gi'
 
 export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, handleDeletePost, username, userId, handleDeleteReview}){
     const [newReview, setNewReview] = useState({
@@ -10,7 +11,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
         "comment": ""
     })
     const [liked, setLiked] = useState(false)
-    const [toggleForm, setToggleForm] = useState(true)
+    const [toggleForm, setToggleForm] = useState(false)
 
     function handleChange(e){
         setNewReview({ ...newReview, 
@@ -45,18 +46,27 @@ export default function Posts({reviewData, title, image, likes, character_class,
      
 
     return (
-        <div>
-            {console.log(reviewData.post_id)}
-            <p>{title}</p>
-            <p>{username}</p>
-            <img src={image} alt={title}/>
-            <button onClick={() => {
-                addLikes()
-                setLiked(!liked)
-                }}>{liked ? "Dislike" : "Like"}</button>
-                {user.id === userId ? <button onClick={ () =>handleDeletePost(id)}>Delete Post</button> : ""}
-            <p>{likes}</p>
-            <p>{character_class}</p>
+        <div className='post-div'>
+            <article className='single-post'>
+                <div className='post-header'>
+                    <h2>{title}</h2> 
+                    <span><h2>{likes}</h2></span>
+                </div>
+                <span>posted by: <p>{username}</p> </span>
+                <img src={image} alt={title}/>
+                <div className='post-like-del-container'>
+                    <div className='likes'>
+                    
+                    <button onClick={() => {
+                        addLikes()
+                        setLiked(!liked)
+                        }}>{liked ? <GiAncientSword /> : <GiBroadsword />}</button>
+                    </div>                
+                </div>
+                <div className="character-container">
+                    <h3>{character_class}</h3>
+                </div>
+            </article>
             <button onClick={() => setToggleForm(!toggleForm)}>{toggleForm ? "Hide Form" : "Add Review"}</button>
             {toggleForm ? <form onSubmit={handleSubmit}>
                 <label>
@@ -72,6 +82,10 @@ export default function Posts({reviewData, title, image, likes, character_class,
             {reviewData.filter((a) => a.post_id === id).map(review => 
                 <Reviews key={review.id} rating={review.rating} comment={review.comment} username={review.user.username} handleDeleteReview={handleDeleteReview} user={user} userId={review.user.id} id={review.id}/>
             )}
+            <div>
+                {user.id === userId ? 
+                <button onClick={ () =>handleDeletePost(id)}>Delete Post</button> : ""}
+            </div>
         </div>
     )
 }

@@ -8,19 +8,25 @@ function App() {
   const [user, setUser] = useState(null)
   const [postData, setPostData] = useState([])
   const [reviewData, setReviewData] = useState([])
+  const [isloading, setIsLoading] = useState(false)
 
 
   useEffect(() =>{
-    fetch('/me')
+    
+    fetch('/me', {
+      credentials: 'include'
+    })
     .then(r => {
+    
       if(r.ok) {
-        r.json().then(user =>  (user))
+        r.json().then(user =>  setUser(user)) 
       }
     })
   },[])
 
   
   useEffect(() => {
+    setIsLoading(true);
     fetch("/posts")
     .then(res => res.json())
     .then(data => setPostData(data))
@@ -29,7 +35,9 @@ function App() {
   useEffect(() => {
     fetch("/reviews")
     .then(res => res.json())
+      
     .then(data => setReviewData(data))
+    setIsLoading(false)
   }, [])
 
 

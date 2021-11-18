@@ -1,14 +1,16 @@
 import React, {useState} from 'react'
+import '../../CSS/login.css'
 
 const LoginForm = ({onLogin}) => {
 
+    const [errors, setErrors] = useState([])
     const [login, setLogin] = useState({
         username: '',
         password: ''
     })
 
     const [isloading, setIsLoading] = useState(false)
-    const [errors, setErrors] = useState([])
+    
 
     const handleChange = e => {
         setLogin({
@@ -31,36 +33,37 @@ const LoginForm = ({onLogin}) => {
           if (r.ok) {
             r.json().then((user) => onLogin(user));
           } else {
-            r.json().then((err) => setErrors(err.errors));
+            r.json().then((error) => setErrors(error.error));
           }
         });
     }
 
     return (
         <form onSubmit={handleSubmit}>
-
-            <label htmlFor="username">Username</label>
-            <input type='text' id='username' 
+            <h2>LOGIN</h2>
+            <input className='input-box'  placeholder='Your Username' type='text' id='username' 
             name = "username"autoComplete='off' value={login.username} 
             onChange={handleChange}
             />
-
-            <label htmlFor="password">Password</label>
-            <input type='password' id='password' 
+            <input className='input-box'  placeholder='Password' type='password' id='password' 
             name = "password"
             autoComplete='current-password' value={login.password} 
             onChange={handleChange}
             />
-            <button type='submit'>
+
+            <button className='login-btn' type='submit'>
             {isloading ? "Loading...." : "Login"}
+
             </button>
-            {errors.map(err => {
+            {/* {console.log(errors)} */}
+              <span>{errors}</span>
+            {/* {errors.map(err => {
                 return (
-                    <p key={err}>
+                    <span key={err}>
                         {err}
-                    </p>
+                    </span>
                 )
-                })}
+                })} */}
         </form>
     )              
 }
