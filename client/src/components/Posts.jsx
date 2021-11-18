@@ -2,7 +2,7 @@ import React from "react";
 import Reviews from "./Reviews";
 import { useState } from "react";
 
-export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, handleDeletePost, username, userId}){
+export default function Posts({reviewData, title, image, likes, character_class, makeReview, id, updateLikes, user, handleDeletePost, username, userId, handleDeleteReview}){
     const [newReview, setNewReview] = useState({
         "user_id": user.id,
         "post_id": id,
@@ -70,7 +70,7 @@ export default function Posts({reviewData, title, image, likes, character_class,
                 <input type="submit" value="Submit"/>
             </form> : ""}
             {reviewData.filter((a) => a.post_id === id).map(review => 
-                <Reviews key={review.id} rating={review.rating} comment={review.comment} username={review.user.username}/>
+                <Reviews key={review.id} rating={review.rating} comment={review.comment} username={review.user.username} handleDeleteReview={handleDeleteReview} user={user} userId={review.user.id} id={review.id}/>
             )}
         </div>
     )

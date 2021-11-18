@@ -93,10 +93,19 @@ const handleDeletePost = id => {
   })
 }
 
+const handleDeleteReview = id => {
+  fetch(`reviews/${id}`,{
+    method : 'DELETE'
+  })
+  .then(() => {
+    const deleteReview = reviewData.filter(review => review.id !== id)
+    setReviewData(deleteReview)
+  })
+}
   return (
     <div>
       <Header user={user} setUser={setUser}/>
-      <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}  setPostData={setPostData} handleDeletePost={handleDeletePost}/>
+      <Home user={user} postData={postData} reviewData={reviewData} makePost={makePost} makeReview={makeReview} updateLikes={updateLikes}  setPostData={setPostData} handleDeletePost={handleDeletePost} handleDeleteReview={handleDeleteReview}/>
     </div>
   );
 }
