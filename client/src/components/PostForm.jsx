@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {GiSwordWound} from 'react-icons/gi'
 
 export default function PostForm({makePost, user}){
     const [newPost, setNewPost] = useState({
@@ -10,6 +11,9 @@ export default function PostForm({makePost, user}){
         "image": "",
         "favorite": false
     })
+
+    const [showForm, setShowForm] = useState(false)
+    
 
     function handleChange(e){
         setNewPost({ ...newPost, 
@@ -23,20 +27,28 @@ export default function PostForm({makePost, user}){
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Title:
-            </label>
-            <input type="text" name="title" value={newPost.title} onChange={handleChange}/>
-            <label>
-                Character Class:
-                <input type="text" name="character_class" value={newPost.character_class} onChange={handleChange}/>
-            </label>
-            <label>
-                Image:
-                <input type="text" name="image" value={newPost.image} onChange={handleChange}/>
-            </label>
-            <input type="submit" value="Submit"/>
-        </form>
+        <div> 
+            <div className="form-button">
+                <button onClick={() => setShowForm(!showForm)}>
+                    <GiSwordWound />
+                </button>
+            </div>
+            {showForm ? (
+            <div className="post-form-container ">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <input placeholder='Title' type="text" name="title" value={newPost.title} onChange={handleChange}/>
+                    </div>
+                    <div>
+                        <input placeholder='Character Class' type="text" name="character_class" value={newPost.character_class} onChange={handleChange}/>
+                    </div>
+                    <div>
+                        <input placeholder='Image' type="text" name="image" value={newPost.image} onChange={handleChange}/>
+                    </div>
+                    <input className='form-submit' type="submit" value="Submit"/>
+                </form>
+            </div>
+            ): "" }
+        </div>
     )
 }

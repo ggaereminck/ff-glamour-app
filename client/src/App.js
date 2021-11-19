@@ -9,15 +9,15 @@ import Profile from './components/Profile';
 
 
 
+
 function App() {
   const [user, setUser] = useState(null)
   const [postData, setPostData] = useState([])
   const [reviewData, setReviewData] = useState([])
-  const [isloading, setIsLoading] = useState(false)
 
 
-  useEffect(() =>{
-    
+
+  useEffect(() =>{  
     fetch('/me', {
       credentials: 'include'
     })
@@ -31,7 +31,6 @@ function App() {
 
   
   useEffect(() => {
-    setIsLoading(true);
     fetch("/posts")
     .then(res => res.json())
     .then(data => setPostData(data))
@@ -39,10 +38,9 @@ function App() {
 
   useEffect(() => {
     fetch("/reviews")
-    .then(res => res.json())
-      
+    .then(res => res.json())  
     .then(data => setReviewData(data))
-    setIsLoading(false)
+
   }, [])
 
 
@@ -58,7 +56,7 @@ function App() {
     .then(res => res.json())
     .then(post => {
       setPostData([
-        post, ...postData
+        ...postData, post
       ])
     })
   } 
@@ -72,7 +70,7 @@ function App() {
     .then(res => res.json())
     .then(review => {
       setReviewData([
-        review, ...reviewData
+        ...reviewData, review
       ])
     })
   } 
@@ -134,8 +132,9 @@ const handleDeleteReview = id => {
 }
   return (
     <div>
+
         <Header user={user} setUser={setUser}/>
-        <NavBar />
+        {/* <NavBar /> */}
         <Switch> 
         <Route path="/Profile">
         {postData.filter(post => post.user.id === user.id).sort((a, b) =>
