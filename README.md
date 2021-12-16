@@ -1,9 +1,6 @@
-# Project Template: React/Rails API
+## Collaborative CRUD App made to showcase Final Fantasy Glamour. 
+![glamour](https://user-images.githubusercontent.com/35578002/146464974-ff3f4243-19d4-40b4-8d12-74fe2943f098.jpg)
 
-## Description
-
-This project is scaffolded so that you can build a React frontend and Rails
-backend together, and easily deploy them to Heroku.
 
 ## Requirements
 
